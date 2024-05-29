@@ -3,6 +3,7 @@
 # libraries
 import argparse
 import networkx as nx
+from PyEntrezId import Conversion
 
 ## arguments.
 ## 2024-05-28 - include edgelist file and source.
@@ -41,4 +42,13 @@ def three_edges(G):
     print("###### First three edges in the graph: ######")
     for edge in first_three_edges:
         print(edge)
+
+
+
+
+def entrez_to_hgnc(entrez_id):
+    Id = Conversion('dummyemail@dummybunny.info')
+    hgnc_symbol = Id.convert_entrez_to_hgnc(entrez_id)
+    return(hgnc_symbol)
+
 
