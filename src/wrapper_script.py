@@ -6,14 +6,16 @@ from RWR import RWR
 def main():
 
     edgelist,source,hgnc_file = generate_arguments()
-    # print("###### Creating graph from edgelist: " + edgelist + " #######")
-    # G = read_edgelist(edgelist,source)
-    # print('###### Running random walk with restart (aka, PageRank) ######')
-    # pr = RWR(G)
-    # print('###### top RWR scores:  ######')
-    # print(dict(list(pr.items())[:10]))
-    entrez_to_hgnc(['100', '1000', '1'],hgnc_file) 
-    
+    print("###### Creating graph from edgelist: " + edgelist + " #######")
+    G = read_edgelist(edgelist,source)
+    print('###### Running random walk with restart (aka, PageRank) ######')
+    pr = RWR(G)
+    print('###### top RWR scores:  ######')
+
+    # Create a new dictionary with replaced keys
+    hgnc_results = {k: v for k, v in zip(entrez_to_hgnc(list(pr.keys()),hgnc_file), pr.values())}
+    print(dict(list(hgnc_results.items())[:10]))
+
 if __name__ == '__main__':
     main()
 
