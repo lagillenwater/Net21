@@ -51,13 +51,17 @@ def entrez_to_hgnc(entrez_ids,hgnc_file):
     hgnc['entrez_id'] = hgnc['entrez_id'].astype(pd.Int64Dtype()).astype(str)
     # filter by list of entrez_ids
     result_df = hgnc[hgnc['entrez_id'].isin(entrez_ids)]
+
     # Sort the DataFrame based on the 'order' column
+    
     warnings.simplefilter("ignore") ## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy  result_df['entrez_id'] = result_df['entrez_id'].map({id: i for i, id in enumerate(entrez_ids)})/Users/lucas/Library/CloudStorage/OneDrive-TheUniversityofColoradoDenver/Projects/Net21/src/utility_functions.py:55: SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
+
     result_df['entrez_id'] = result_df['entrez_id'].map({id: i for i, id in enumerate(entrez_ids)})
+
     warnings.simplefilter("ignore") ## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-cop
+    
     result_df.sort_values(by='entrez_id', inplace=True)
     hgnc_symbols = result_df['symbol'].tolist()
     return hgnc_symbols
     
 
-    
