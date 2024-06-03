@@ -1,9 +1,10 @@
 ## program for running random walks with restart over a network
 
 import networkx as nx
+import random
 
-def RWR(G):
-    pr = nx.pagerank(G, weight = 'posterior_prob')
+def RWR(G, personalization = None):
+    pr = nx.pagerank(G, weight = 'posterior_prob', personalization = personalization)
     # sort
     sorted_items = sorted(pr.items(), key=lambda item: item[1], reverse = True)
     sorted_dict_comp = {k: v for k, v in sorted_items}
@@ -132,7 +133,7 @@ def _pagerank_scipy(
         p = np.repeat(1.0 / N, N)
     else:
         p = np.array([personalization.get(n, 0) for n in nodelist], dtype=float)
-        if p.sum() == 0:
+        If p.sum() == 0:
             raise ZeroDivisionError
         p /= p.sum()
     # Dangling nodes
@@ -153,3 +154,5 @@ def _pagerank_scipy(
         if err < N * tol:
             return dict(zip(nodelist, map(float, x)))
     raise nx.PowerIterationFailedConvergence(max_iter)
+
+
