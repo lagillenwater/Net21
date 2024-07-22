@@ -71,8 +71,8 @@ plt.xlabel('Overlap')
 plt.title('Chr21 Overlap of Hallmark Gene Sets')
 plt.show()
 
-for key, overlaps in hallmark_overlaps.items():
-    print(f"{key}: {overlaps}")
+# for key, overlaps in hallmark_overlaps.items():
+#     print(f"{key}: {overlaps}")
 
 
 
@@ -104,5 +104,6 @@ plt.xlabel('Overlap')
 plt.title('Chr21 Overlap of Curated Gene Sets')
 plt.show()
 
-for key, overlaps in curated_overlaps.items():
-    print(f"{key}: {overlaps}")
+# for key, overlaps in curated_overlaps.items():
+#     print(f"{key}: {overlaps}")
+
