@@ -64,4 +64,22 @@ def entrez_to_hgnc(entrez_ids,hgnc_file):
     hgnc_symbols = result_df['symbol'].tolist()
     return hgnc_symbols
     
+## convert a list of entrez ids to gene symbols
+def hgnc_to_entrez(hgnc_ids,hgnc_file):
+    hgnc = pd.read_csv(hgnc_file, sep = "\t", low_memory = False)
+    hgnc['entrez_id'] = hgnc['entrez_id'].astype(pd.Int64Dtype()).astype(str)
+    # filter by list of entrez_ids
+    result_df = hgnc[hgnc['symbol'].isin(hgnc_ids)]
+
+    # Sort the DataFrame based on the 'order' column
+    
+    warnings.simplefilter("ignore") ## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy  result_df['entrez_id'] = result_df['entrez_id'].map({id: i for i, id in enumerate(entrez_ids)})/Users/lucas/Library/CloudStorage/OneDrive-TheUniversityofColoradoDenver/Projects/Net21/src/utility_functions.py:55: SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame
+
+    result_df['symbol'] = result_df['symbol'].map({id: i for i, id in enumerate(hgnc_ids)})
+
+    warnings.simplefilter("ignore") ## See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-cop
+    
+    result_df.sort_values(by='symbol', inplace=True)
+    entrez_ids = result_df['entrez_id'].tolist()
+    return entrez_ids
 
